@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Expense_Manager_Using_Dapper.Models.ExpensesModel>
+
+@{
+    ViewBag.Title = "ViewExpenses";
+}
+
+<div class="container mt-5">
+    <h2>View Expenses</h2>
+
+    <p>
+        @Html.ActionLink("Add Expense", "AddExpense", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.expenseId)</th>
+                <th>@Html.DisplayNameFor(model => model.userId)</th>
+                <th>@Html.DisplayNameFor(model => model.Amount)</th>
+                <th>@Html.DisplayNameFor(model => model.Purpose)</th>
+                <th>@Html.DisplayNameFor(model => model.expenseType)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.expenseId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.userId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Purpose)</td>
+                    <td>@Html.DisplayFor(modelItem => item.expenseType)</td>
+                    <td>
+                        @Html.ActionLink("Update", "UpdateExpense", "ManageExpense", new { id = item.expenseId }, new { @class = "btn btn-warning btn-sm" }) |
+                        @Html.ActionLink("Details", "ViewDetails", "ManageExpense", new { id = item.expenseId }, new { @class = "btn btn-info btn-sm" }) |
+                        @Html.ActionLink("DeleteExpense", "DeleteExpense", "ManageExpense", new { id = item.expenseId }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+
+            <tr class="table-dark">
+                <td colspan="2"></td>
+                <td>Total Amount : @Model.Sum(item => item.Amount)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,58 @@
+﻿@model Expense_Manager_Using_Dapper.Models.IncomeModel
+
+@{
+    ViewBag.Title = "IncomeDetails";
+}
+
+<h2>IncomeDetails</h2>
+
+<div>
+    <h4>IncomeModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.incomeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.incomeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IncomeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IncomeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Update", "UpdateIncome", "ManageExpense", new { id = Model.incomeId }, null) |
+    @Html.ActionLink("ViewIncomes", "ViewAllIncomes", "ManageExpense", new { id = Model.incomeId }, null)
+</p>

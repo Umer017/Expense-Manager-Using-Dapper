@@ -1,0 +1,204 @@
+﻿CREATE TABLE users (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    username VARCHAR(255) NOT NULL,
+    mobile VARCHAR(15),
+    email VARCHAR(255) NOT NULL,
+    userpassword VARCHAR(255) NOT NULL
+);
+
+CREATE PROCEDURE sp_CreateUser
+@username varchar(50),
+@mobile varchar(15),
+@email varchar(50),
+@userpassword varchar(50)
+as
+begin
+insert into users(username,mobile,email,userpassword) values(@username,@mobile,@email,@userpassword)
+end
+
+CREATE PROCEDURE sp_getUserById
+@id int 
+as
+begin 
+select id,username,mobile,email,userpassword from users where id = @id 
+end
+
+CREATE PROCEDURE sp_getAllUsers
+as
+begin
+select id,username,mobile,email,userpassword from users
+end
+
+CREATE PROCEDURE sp_updateUserById
+@id int,
+@username varchar(50),
+@mobile varchar(15),
+@email varchar(50),
+@userpassword varchar(50)
+as
+begin
+update users set username=@username,mobile=@mobile,email=@email,userpassword=@userpassword
+end
+
+CREATE PROCEDURE sp_deleteUserById
+@id int
+as
+begin
+delete from users where id = @id
+end
+
+CREATE PROCEDURE sp_getUserByUsername
+@username varchar(50) 
+as
+begin 
+select id,username,mobile,email,userpassword from users where username = @username 
+end
+
+CREATE PROCEDURE sp_getUserByEmail
+@email varchar(50) 
+as
+begin 
+select id,username,mobile,email,userpassword from users where email = @email 
+end
+
+
+/*EXPENSES QUERIES*/
+
+Create table Expenses (
+    expenseId INT PRIMARY KEY IDENTITY(1,1),
+    userId INT,
+    Purpose VARCHAR(255),
+    expenseType VARCHAR(255),
+    Amount INT,
+)
+
+create procedure sp_CreateExpense
+@userId int,
+@Amount int,
+@Purpose varchar(255),
+@expenseType varchar(255)
+as
+begin
+insert into Expenses(userId,Amount,Purpose,expenseType) values(@userId,@Amount,@Purpose,@expenseType)
+end
+
+
+create procedure sp_getAllExpenses
+/*@id int */
+as
+begin
+select userId,Amount,Purpose,expenseType from Expenses
+end
+
+create procedure sp_deleteExpenseById
+@id int
+as
+begin 
+delete Expenses where expenseId = @id
+end
+
+create procedure sp_ExpenseById
+@id int
+as
+begin
+select userId,Amount,Purpose,expenseType from Expenses where expenseId=@id
+end
+
+create procedure sp_updateExpense
+@expenseId int,
+@Amount int,
+@Purpose varchar(255),														
+@expenseType varchar(255)
+as
+begin
+update Expenses set Amount=@Amount , Purpose=@Purpose , expenseType=@expenseType where expenseId=@expenseId
+end
+
+
+/* Income Queries */
+-- Create Income table
+CREATE TABLE Income (
+    incomeId INT PRIMARY KEY IDENTITY(1,1),
+    userId INT,
+    Source VARCHAR(255),
+    IncomeType VARCHAR(255),
+    Amount INT
+)
+
+-- Stored procedure to create income
+CREATE PROCEDURE sp_CreateIncome
+@userId INT,
+@Amount INT,
+@Source VARCHAR(255),
+@IncomeType VARCHAR(255)
+AS
+BEGIN
+    INSERT INTO Income(userId, Amount, Source, IncomeType) VALUES (@userId, @Amount, @Source, @IncomeType)
+END
+
+-- Stored procedure to get all incomes
+CREATE PROCEDURE sp_GetAllIncomes
+AS
+BEGIN
+    SELECT incomeId,userId, Amount, Source, IncomeType FROM Income
+END
+
+-- Stored procedure to delete income by ID
+CREATE PROCEDURE sp_DeleteIncomeById
+@id INT
+AS
+BEGIN
+    DELETE Income WHERE incomeId = @id
+END
+
+-- Stored procedure to get income by ID
+CREATE PROCEDURE sp_IncomeById
+@id INT
+AS
+BEGIN
+    SELECT userId, Amount, Source, IncomeType FROM Income WHERE incomeId = @id
+END
+
+-- Stored procedure to update income
+CREATE PROCEDURE sp_UpdateIncome
+@incomeId INT,
+@Amount INT,
+@Source VARCHAR(255),
+@IncomeType VARCHAR(255)
+AS
+BEGIN
+    UPDATE Income SET Amount = @Amount, Source = @Source, IncomeType = @IncomeType WHERE incomeId = @incomeId
+END
+
+
+
+-- get expenses by user id
+create procedure getexpensesforuser
+@userid int
+as
+begin
+select expenseId ,userId,Purpose,Amount,expenseType from Expenses where userId = @userid
+end
+
+
+-- get income by user id
+create procedure getincomesforuser
+@userid int
+as
+begin
+select incomeId,userId,IncomeType,Source,Amount,IncomeType from Income where userId = userId
+end
+
+create procedure sp_getTotalExpense
+@id int
+as
+begin
+select count(Amount) as noOfExpenses,sum(Amount) as TotalExpense from Expenses Where userId = @id
+end
+
+create procedure sp_getTotalIncome
+@id int
+as
+begin
+select count(Amount) as noOfIncomes,sum(Amount) as TotalIncome from Expenses Where userId = @id
+end

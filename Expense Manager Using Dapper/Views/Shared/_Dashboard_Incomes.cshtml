@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Expense_Manager_Using_Dapper.Models.IncomeModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+    @foreach (var item in Model)
+    {
+
+        <li class="list-group-item">IncomeId: @Html.DisplayFor(modelItem => item.incomeId) - ₹@Html.DisplayFor(modelItem => item.Amount)</li>
+
+    }

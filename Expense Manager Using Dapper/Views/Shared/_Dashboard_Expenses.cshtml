@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Expense_Manager_Using_Dapper.Models.ExpensesModel>
+
+
+@foreach (var item in Model) {
+
+ <li class="list-group-item">ExpenseId: @Html.DisplayFor(modelItem => item.expenseId) - ₹@Html.DisplayFor(modelItem => item.Amount)</li>
+
+}
+

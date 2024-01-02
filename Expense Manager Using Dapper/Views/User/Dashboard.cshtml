@@ -1,0 +1,55 @@
+﻿@model Expense_Manager_Using_Dapper.Models.AllExpenseAndIncomes
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 text-light p-3">
+            <h2 class="text-light">Expense Manager</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    @Html.ActionLink("Add Expense", "AddExpense", "ManageExpense", null, htmlAttributes: new { @class = "nav-link text-light" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Manage Expenses", "ViewExpenses", "ManageExpense", null, htmlAttributes: new { @class = "nav-link text-light" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Add Income", "AddIncome", "ManageExpense", null, htmlAttributes: new { @class = "nav-link text-light" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Manage Incomes", "ViewAllIncomes", "ManageExpense", null, htmlAttributes: new { @class = "nav-link text-light" })
+                </li>
+            </ul>
+            <div class="mt-3 text-light">Balance: @(Model.totalIncome.TotalIncome - Model.totalExpense.TotalExpense)</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <h2 class="text-primary">Dashboard</h2>
+
+            <!-- Recent Expenses -->
+            <div class="card mt-4">
+                <div class="card-header bg-danger text-light">
+                    Recent Expenses
+                </div>
+                <ul class="list-group list-group-flush">
+                    <!-- Loop through recent expenses and display -->
+                    @Html.Partial("~/Views/Shared/_Dashboard_Expenses.cshtml", Model.Expenses)
+                </ul>
+            </div>
+
+            <!-- Recent Incomes -->
+            <div class="card mt-4">
+                <div class="card-header bg-success text-light">
+                    Recent Incomes
+                </div>
+                <ul class="list-group list-group-flush">
+                    <!-- Loop through recent incomes and display -->
+                    @Html.Partial("~/Views/Shared/_Dashboard_Incomes.cshtml", Model.incomes)
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
